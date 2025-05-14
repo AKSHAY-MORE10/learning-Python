@@ -7,6 +7,6 @@ def first():
     return {"message": "Hello World"}
 
 @app.get("/first")
-def first():
+def secand():
     return {"message": "learning fastapi"}
 
