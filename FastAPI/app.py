@@ -1,6 +1,11 @@
 from fastapi import FastAPI
+import json
 
 app = FastAPI()
+def read_json():
+    with open("patients.json", "r") as f:
+        data = json.load(f)
+    return data
 
 @app.get("/")
 def first():
@@ -12,4 +17,4 @@ def secand():
 
 @app.get("/view")
 def view():
-    return {"message": "view"}
+    return {"message": read_json()} 
