@@ -1,0 +1,92 @@
+[
+  {
+    "id": 1,
+    "name": "John Doe",
+    "age": 34,
+    "gender": "Male",
+    "blood_type": "O+",
+    "conditions": ["Hypertension"],
+    "admitted": true
+  },
+  {
+    "id": 2,
+    "name": "Jane Smith",
+    "age": 28,
+    "gender": "Female",
+    "blood_type": "A-",
+    "conditions": ["Asthma"],
+    "admitted": false
+  },
+  {
+    "id": 3,
+    "name": "Mark Johnson",
+    "age": 45,
+    "gender": "Male",
+    "blood_type": "B+",
+    "conditions": ["Diabetes", "Hypertension"],
+    "admitted": true
+  },
+  {
+    "id": 4,
+    "name": "Emily Davis",
+    "age": 52,
+    "gender": "Female",
+    "blood_type": "AB+",
+    "conditions": ["Arthritis"],
+    "admitted": false
+  },
+  {
+    "id": 5,
+    "name": "Michael Brown",
+    "age": 39,
+    "gender": "Male",
+    "blood_type": "O-",
+    "conditions": ["None"],
+    "admitted": false
+  },
+  {
+    "id": 6,
+    "name": "Sarah Wilson",
+    "age": 23,
+    "gender": "Female",
+    "blood_type": "A+",
+    "conditions": ["Anemia"],
+    "admitted": true
+  },
+  {
+    "id": 7,
+    "name": "David Lee",
+    "age": 31,
+    "gender": "Male",
+    "blood_type": "B-",
+    "conditions": ["Migraine"],
+    "admitted": false
+  },
+  {
+    "id": 8,
+    "name": "Olivia Garcia",
+    "age": 27,
+    "gender": "Female",
+    "blood_type": "O+",
+    "conditions": ["Thyroid disorder"],
+    "admitted": true
+  },
+  {
+    "id": 9,
+    "name": "William Martinez",
+    "age": 50,
+    "gender": "Male",
+    "blood_type": "AB-",
+    "conditions": ["Heart Disease"],
+    "admitted": true
+  },
+  {
+    "id": 10,
+    "name": "Sophia Anderson",
+    "age": 36,
+    "gender": "Female",
+    "blood_type": "A+",
+    "conditions": ["None"],
+    "admitted": false
+  }
+]

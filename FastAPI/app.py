@@ -10,3 +10,6 @@ def first():
 def secand():
     return {"message": "learning fastapi"}
 
+@app.get("/view")
+def view():
+    return {"message": "view"}
