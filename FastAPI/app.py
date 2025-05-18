@@ -1,4 +1,4 @@
-from fastapi import FastAPI   #uvicorn app:app --reload
+from fastapi import FastAPI, Path, HTTPException   #uvicorn app:app --reload
 import json    
 
 app = FastAPI()
@@ -22,11 +22,13 @@ def secand():
 
 
 @app.get("/view/{id}")
-def view(id:int):
+def view(id: int = Path(..., description="Enter Patient ID", example=1)):
     data = read_json()
 
     for i in data:
         if i["id"] == id:
             return i
-        
-    return {"message": "Patient not found"}
+        raise HTTPException(status_code=404, detail="Patient not found")
+    return { "message": "Patient not found"}
+
+
