@@ -1,5 +1,5 @@
-from fastapi import FastAPI
-import json
+from fastapi import FastAPI   #uvicorn app:app --reload
+import json    
 
 app = FastAPI()
 def read_json():
@@ -17,4 +17,5 @@ def secand():
 
 @app.get("/view")
 def view():
-    return {"message": read_json()} 
+    data = read_json()
+    return data 
