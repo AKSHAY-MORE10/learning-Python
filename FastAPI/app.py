@@ -15,7 +15,18 @@ def first():
 def secand():
     return {"message": "learning fastapi"}
 
-@app.get("/view")
-def view():
+# @app.get("/view")
+# def view():
+#     data = read_json()
+#     return data 
+
+
+@app.get("/view/{id}")
+def view(id:int):
     data = read_json()
-    return data 
+
+    for i in data:
+        if i["id"] == id:
+            return i
+        
+    return {"message": "Patient not found"}
