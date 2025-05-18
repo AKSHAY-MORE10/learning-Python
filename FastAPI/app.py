@@ -31,4 +31,4 @@ def view(id: int = Path(..., description="Enter Patient ID", example=1)):
         raise HTTPException(status_code=404, detail="Patient not found")
     return { "message": "Patient not found"}
 
-
+ 
