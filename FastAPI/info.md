@@ -81,3 +81,5 @@ from fastapi import Path
 
 def endpoint_name(param_name: type = Path(...)):
     pass
+
+
