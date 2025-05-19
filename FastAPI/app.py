@@ -55,17 +55,5 @@ def search(sort_by: str = Query(..., description="sort on the basis of blood gro
 #http://127.0.0.1:8000/search?sort_by=blood_type&order=asc
 
 
-#getting data by pacient ids
-@app.get("/by_IDS/{id}")
-def by_IDS(id:int = Path(..., description="Enter Patient ID", example=1)):
-
-    data = read_json()
-
-    for i in data:
-        if i["id"] == id:
-            return i
-        
-    return { "message": "Patient not found"}
-
 
 
