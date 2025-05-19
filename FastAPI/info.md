@@ -26,60 +26,51 @@ FastAPI is widely used for building:
 
 ---
 
-# Save only the specific sections requested by the user into a markdown file
+# FastAPI: Features & Advantages ✨
 
-fastapi_features_md = """# FastAPI: Features & Advantages ✨
-
-## Other Important Features
+## Key Features
 
 - **Auto Documentation** with Swagger UI (`/docs`) and ReDoc (`/redoc`)
 - **Dependency Injection System** for reusability
 - **Security & Authentication** support
 - **Asynchronous support** using `async def` for high performance
 
----
-
-## Advantages of FastAPI
+## Advantages
 
 ✅ Super fast performance (comparable to NodeJS and Go)  
 ✅ Automatic validation and type checking  
 ✅ Developer-friendly with automatic docs  
-✅ Easy to integrate with databases like SQLAlchemy, MongoDB, etc.  
+✅ Easy to integrate with databases  
 ✅ Great for async and concurrent code  
 
 ---
 
-## Final Thoughts
+# HTTPException in FastAPI ⚠️
 
-FastAPI is **perfect for building scalable and modern APIs**. It’s easy to learn, fast to develop with, and robust enough for production. Whether you're building a small hobby project or an enterprise-grade system, FastAPI is an excellent choice.
-
----
-
-## Core Features / Functions in FastAPI
-
-### 1. Creating the App
-
+## Basic Usage
 ```python
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 
 app = FastAPI()
 
-# Saving the provided markdown content with a proper structure to a markdown file
-
-proper_path_md = """# Using `Path()` in FastAPI 📍
-
-## What is `Path()`?
-
-In **FastAPI**, the `Path()` function is used to declare **required path parameters** and to apply **metadata or validation rules** to them. It's especially useful when you want to ensure the values passed through the URL meet certain criteria.
-
----
-
-## Syntax
-
-```python
-from fastapi import Path
-
-def endpoint_name(param_name: type = Path(...)):
-    pass
+@app.get("/items/{item_id}")
+async def read_item(item_id: int):
+    if item_id not in items_db:
+        raise HTTPException(
+            status_code=404,
+            detail="Item not found",
+            headers={"X-Error": "Item ID doesn't exist"}
+        )
+    return {"item": items_db[item_id]}
 
 
+
+
+Code	Name	    When to Use
+400	   Bad Request	Invalid client input
+401	   Unauthorized	Missing/invalid authentication
+403	   Forbidden	Authenticated but no permissions
+404	   Not Found	Resource doesn't exist
+409	   Conflict	    Duplicate resource
+422	   Unprocessable  Entity	Request validation failed
+500	   Internal Server Error	Unexpected server error
