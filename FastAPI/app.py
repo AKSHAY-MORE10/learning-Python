@@ -52,7 +52,7 @@ def search(sort_by: str = Query(..., description="sort on the basis of blood gro
     sorted_data = sorted(data, key=lambda x: (x[sort_by], x["age"]), reverse=(order == "desc"))
     return sorted_data
 #http://127.0.0.1:8000/search?sort_by=age&order=asc
-
+#http://127.0.0.1:8000/search?sort_by=blood_type&order=asc
 
 
 
