@@ -55,3 +55,101 @@ def total_admitted():
     
     return count
 
+from fastapi import FastAPI, HTTPException, Path, Query
+from pydantic import BaseModel
+import json
+import os
+
+app = FastAPI()
+
+DATA_FILE = "patients.json"
+
+def read_json():
+    if not os.path.exists(DATA_FILE):
+        return []
+    with open(DATA_FILE, "r") as f:
+        return json.load(f)
+
+def write_json(data):
+    with open(DATA_FILE, "w") as f:
+        json.dump(data, f, indent=2)
+
+# --------------------------
+# 📌 Data Model for Patients
+# --------------------------
+class Patient(BaseModel):
+    id: int
+    name: str
+    age: int
+    gender: str
+    blood_type: str
+    conditions: list
+    admitted: bool
+
+# --------------------------
+# ✅ Create Patient
+# --------------------------
+@app.post("/patients")
+def add_patient(patient: Patient):
+    data = read_json()
+    for p in data:
+        if p["id"] == patient.id:
+            raise HTTPException(status_code=409, detail="Patient ID already exists")
+    data.append(patient.dict())
+    write_json(data)
+    return {"message": "Patient added successfully"}
+
+# --------------------------
+# ✅ Read Patients
+# --------------------------
+@app.get("/patients")
+def get_all_patients():
+    return read_json()
+
+@app.get("/patients/{id}")
+def get_patient(id: int = Path(..., description="Patient ID")):
+    data = read_json()
+    for patient in data:
+        if patient["id"] == id:
+            return patient
+    raise HTTPException(status_code=404, detail="Patient not found")
+
+# --------------------------
+# ✅ Update Condition/Status
+# --------------------------
+@app.put("/patients/{id}")
+def update_patient(id: int, conditions: list = Query(None), admitted: bool = Query(None)):
+    data = read_json()
+    for patient in data:
+        if patient["id"] == id:
+            if conditions is not None:
+                patient["conditions"] = conditions
+            if admitted is not None:
+                patient["admitted"] = admitted
+            write_json(data)
+            return {"message": "Patient updated"}
+    raise HTTPException(status_code=404, detail="Patient not found")
+
+# --------------------------
+# ✅ Delete Patient by ID
+# --------------------------
+@app.delete("/patients/{id}")
+def delete_patient(id: int):
+    data = read_json()
+    new_data = [p for p in data if p["id"] != id]
+    if len(new_data) == len(data):
+        raise HTTPException(status_code=404, detail="Patient not found")
+    write_json(new_data)
+    return {"message": "Patient deleted"}
+
+# --------------------------
+# ✅ Bulk Update: Discharge if age < 25
+# --------------------------
+@app.put("/patients/bulk-discharge")
+def bulk_discharge():
+    data = read_json()
+    for patient in data:
+        if patient["age"] < 25:
+            patient["admitted"] = False
+    write_json(data)
+    return {"message": "All patients under age 25 discharged"}
