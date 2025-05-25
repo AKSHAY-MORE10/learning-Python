@@ -22,6 +22,9 @@ def secand():
 
 
 #using HTTPException for error handling
+
+
+
 @app.get("/view/{id}")
 def view(id: int = Path(..., description="Enter Patient ID", example=1)):
     data = read_json()
@@ -48,9 +51,9 @@ def search(sort_by: str = Query(..., description="sort on the basis of blood gro
         raise HTTPException(status_code=400, detail = "Invalid order")
     
     data = read_json()
-
     sorted_data = sorted(data, key=lambda x: (x[sort_by], x["age"]), reverse=(order == "desc"))
     return sorted_data
+
 #http://127.0.0.1:8000/search?sort_by=age&order=asc
 #http://127.0.0.1:8000/search?sort_by=blood_type&order=asc
 
