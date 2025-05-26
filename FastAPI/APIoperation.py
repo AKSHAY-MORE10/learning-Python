@@ -53,3 +53,20 @@ def sorted_data(
     data = read_json()
     sorted_data = sorted(data, key=lambda x:(x[sort_by], x["age"]), reverse=(order == "desc"))
     return sorted_data
+
+
+
+@app.get("/total_admitted")
+def total_admitted():
+    data = read_json()
+    
+    count = 0
+    for i in data:
+        if i["admitted"] == True:
+            count += 1
+
+    return {"total_admitted": count}
+
+
+
+
