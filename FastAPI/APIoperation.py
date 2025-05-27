@@ -60,8 +60,14 @@ def sorted_data(
 
 @app.get("/total_admitted")
 def total_admitted():
+    """
+    Return the total number of admitted patients.
+    
+    This endpoint will return the total number of patients who have been admitted.
+    """
     data = read_json()
     
+    # Count the number of patients who have been admitted
     count = 0
     for i in data:
         if i["admitted"] == True:
@@ -72,6 +78,7 @@ def total_admitted():
 
 
 
+# append patient
 @app.post("/append")
 def append(patient: Patient):
     data = read_json()
@@ -80,4 +87,46 @@ def append(patient: Patient):
     with open("patients.json", "w") as f:
         json.dump(data, f)
     return patient
+
+# update patient
+@app.put("/update/{id}")
+def update(id : int, patient: Patient):
+    data = read_json()
+    for i in data:
+        if i["id"] == id:
+            i["name"] = patient.name
+            i["age"] = patient.age
+            i["gender"] = patient.gender
+            i["blood_type"] = patient.blood_type
+            i["conditions"] = patient.conditions
+            i["admitted"] = patient.admitted
+            break
+    with open("patients.json", "w") as f:
+        json.dump(data, f)
+    return patient
+
+
+@app.put("updates/{id}")
+def updates(id :int , conditions: list = Query(None), admitted: bool = Query(None)):
+    data = read_json()
+    for i in data:
+        if i["id"] == id:
+            i[conditions] = conditions
+            i[admitted] = admitted
+            break
+
+    with open("patients.json", "w") as f:
+        json.dump(data, f)
+    return data
+
+
+@app.delete("/delete/{id}")
+def delete_patient(id: int):
+    data = read_json()
+    new_data = [i for i in data if i["id"] != id]
+    if len(new_data) == len(data):
+        raise HTTPException(status_code=404, detail="Patient not found")
+    with open("patients.json", "w") as f:
+        json.dump(new_data, f)
+    return {"message": "Patient deleted successfully"}
 
