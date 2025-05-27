@@ -1,6 +1,8 @@
 from fastapi import FastAPI, Path, HTTPException, Query
 from pydantic import BaseModel      
 import json
+from typing import List, Dict
+import os
 
 app = FastAPI()
 
@@ -69,4 +71,13 @@ def total_admitted():
 
 
 
+
+@app.post("/append")
+def append(patient: Patient):
+    data = read_json()
+    data.append(patient.dict())
+
+    with open("patients.json", "w") as f:
+        json.dump(data, f)
+    return patient
 
