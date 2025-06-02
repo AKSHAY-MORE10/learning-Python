@@ -109,16 +109,5 @@
             "None"
         ],
         "admitted": false
-    },
-    {
-        "id": 11,
-        "name": "akshay",
-        "age": 20,
-        "gender": "male",
-        "blood_type": "O+",
-        "conditions": [
-            "string"
-        ],
-        "admitted": true
     }
 ]
